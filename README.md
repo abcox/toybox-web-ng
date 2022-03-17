@@ -1,6 +1,6 @@
 # ToyboxWebNg
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.8.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.8, and is an Angular front end for [the toybox-api](https://github.com/abcox/toybox-api).
 
 ## Development server
 
