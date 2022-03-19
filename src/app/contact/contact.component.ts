@@ -6,13 +6,6 @@ import { Store } from '@ngrx/store';
 import { ContactSearch } from './store/contact.actions';
 import { AppState, ContactStateSelector } from '../app.state';
 
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
-
 @Component({
   selector: 'app-contact',
   templateUrl: './contact.component.html',
@@ -32,7 +25,7 @@ export class ContactComponent implements OnInit {
     this.state = this.store.select<any>(ContactStateSelector);
     this.state.subscribe((state) => {
       console.log('state: ', state);
-      this.dataSource = state.contacts.contacts;
+      this.dataSource = state.contacts;
     });
     this.store.dispatch(new ContactSearch({}));
   }

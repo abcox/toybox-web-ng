@@ -41,7 +41,7 @@ export function reducer(state = initialState, action: All): State {
             console.log(`reducer payload: ${JSON.stringify(action.payload)}`);
             let newState = {
                 ...state,
-                contacts: action.payload,
+                contacts: action.payload.contacts,
                 errorMessage: null,
                 isLoading: false,
             };
