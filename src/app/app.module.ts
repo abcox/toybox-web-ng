@@ -9,6 +9,11 @@ import { ContactComponent } from './contact/contact.component';
 import { HttpClientModule } from '@angular/common/http'
 import { ApiModule, Configuration, ConfigurationParameters } from 'toybox-backend-ts-ng';
 
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+import { ContactEffects } from './contact/store/contact.effects';
+import { reducers } from '../app/app.state';
+
 export function apiConfigFactory (): Configuration {
   const params: ConfigurationParameters = {
     basePath: "http://localhost:3000"
@@ -19,7 +24,7 @@ export function apiConfigFactory (): Configuration {
 @NgModule({
   declarations: [
     AppComponent,
-    ContactComponent
+    ContactComponent,
   ],
   imports: [
     BrowserModule,
@@ -27,7 +32,9 @@ export function apiConfigFactory (): Configuration {
     BrowserAnimationsModule,
     MaterialModule,
     ApiModule.forRoot(apiConfigFactory),
-    HttpClientModule
+    HttpClientModule,
+    StoreModule.forRoot(reducers, {}),
+    EffectsModule.forRoot([ContactEffects]),
   ],
   providers: [],
   bootstrap: [AppComponent]

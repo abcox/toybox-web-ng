@@ -8,7 +8,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "gen-backend": "openapi-generator-cli generate -g typescript-angular -i ./toybox-api.json -o ../toybox-backend-ts-ng --config openapi-config.json"
+    "gen-backend": "openapi-generator-cli generate -g typescript-angular -i ./toybox-api.json -o ../toybox-backend-ts-ng --config openapi-config.json",
+    "copy-backend": "xcopy /y /e \"..\\toybox-backend-ts-ng\\dist\\\" \".\\node_modules\\toybox-backend-ts-ng\\\""
   },
   "private": true,
   "dependencies": {
@@ -22,6 +23,8 @@
     "@angular/platform-browser": "~9.1.11",
     "@angular/platform-browser-dynamic": "~9.1.11",
     "@angular/router": "~9.1.11",
+    "@ngrx/effects": "^8.6.0",
+    "@ngrx/store": "^8.6.0",
     "@openapitools/openapi-generator-cli": "^2.4.26",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",

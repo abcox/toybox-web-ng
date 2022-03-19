@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { MatTableDataSource } from '@angular/material/table';
-import { ContactDto, ContactService } from 'toybox-backend-ts-ng';
-
+import { ContactDto } from 'toybox-backend-ts-ng'; // copy from E:\repos\toybox\toybox-backend-ts-ng\dist to E:\repos\toybox\toybox-backend-ts-ng\node_modules\toybox-backend-ts-ng
+import { Store } from '@ngrx/store';
+import { ContactSearch } from './store/contact.actions';
+import { AppState, ContactStateSelector } from '../app.state';
 
 export interface PeriodicElement {
   name: string;
@@ -18,23 +20,20 @@ export interface PeriodicElement {
 })
 export class ContactComponent implements OnInit {
 
-  contacts: Observable<any>;
   dataSource = new MatTableDataSource<ContactDto>();
   displayedColumns: string[] = ['name', 'email', 'phone'];
+  state: Observable<any>;
 
   constructor(
-    private contactService: ContactService
+    private store: Store<AppState>,
     ) { }
 
   ngOnInit(): void {
-    this.contacts = this.contactService.getContacts();
-    this.contacts.subscribe(resp => {
-      console.log("resp: ", resp);
-      this.dataSource = resp;
+    this.state = this.store.select<any>(ContactStateSelector);
+    this.state.subscribe((state) => {
+      console.log('state: ', state);
+      this.dataSource = state.contacts.contacts;
     });
+    this.store.dispatch(new ContactSearch({}));
   }
-
-  getContacts() {
-  }
-
 }
