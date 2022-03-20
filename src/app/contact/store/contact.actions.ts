@@ -1,25 +1,15 @@
-import { Action } from '@ngrx/store';
+import { createAction, props } from '@ngrx/store';
+import { ContactDto } from 'toybox-backend-ts-ng';
 
-export enum ContactActionTypes {
-    CONTACT_SEARCH = '[View] Search Contact',
-    CONTACT_SEARCH_FAILED = '[View] Search Contact Failed',
-    CONTACT_SEARCH_SUCCEEDED = '[View] Search Contact Succeeded',
-}
-  
-export class ContactSearch implements Action {
-    readonly type = ContactActionTypes.CONTACT_SEARCH;
-    constructor(public payload: any) {}
-}
-export class ContactSearchFailed implements Action {
-    readonly type = ContactActionTypes.CONTACT_SEARCH_FAILED;
-    constructor(public payload: any) {}
-}
-export class ContactSearchSucceeded implements Action {
-    readonly type = ContactActionTypes.CONTACT_SEARCH_SUCCEEDED;
-    constructor(public payload: any) {}
-}
-
-export type All =
-| ContactSearch
-| ContactSearchFailed
-| ContactSearchSucceeded;
+export const SearchAction = createAction(
+    '[CONTACT] Search',
+    props<{ payload?: any}>()
+);
+export const SearchFailureAction = createAction(
+    '[CONTACT] Search Failure',
+    props<{ payload: any}>()
+);
+export const SearchSuccessAction = createAction(
+    '[CONTACT] Search Success',
+    props<{ payload: ContactDto[]}>()
+);

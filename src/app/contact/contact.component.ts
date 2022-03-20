@@ -3,8 +3,10 @@ import { Observable } from 'rxjs';
 import { MatTableDataSource } from '@angular/material/table';
 import { ContactDto } from 'toybox-backend-ts-ng'; // copy from E:\repos\toybox\toybox-backend-ts-ng\dist to E:\repos\toybox\toybox-backend-ts-ng\node_modules\toybox-backend-ts-ng
 import { Store } from '@ngrx/store';
-import { ContactSearch } from './store/contact.actions';
-import { AppState, ContactStateSelector } from '../app.state';
+import * as AppState from '../store/app.state';
+import * as contactActions from './store/contact.actions';
+import { ContactState } from '../contact/store/contact.state'
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-contact',
@@ -13,20 +15,21 @@ import { AppState, ContactStateSelector } from '../app.state';
 })
 export class ContactComponent implements OnInit {
 
-  dataSource = new MatTableDataSource<ContactDto>();
+  contacts$: Observable<MatTableDataSource<ContactDto>>;
   displayedColumns: string[] = ['name', 'email', 'phone'];
   state: Observable<any>;
 
   constructor(
-    private store: Store<AppState>,
-    ) { }
+    private store: Store<ContactState>,
+    ) {
+      this.contacts$ = this.store.select(AppState.getContacts).pipe(
+        map(results =>
+          new MatTableDataSource<ContactDto>(results)
+        )
+      );
+    }
 
   ngOnInit(): void {
-    this.state = this.store.select<any>(ContactStateSelector);
-    this.state.subscribe((state) => {
-      console.log('state: ', state);
-      this.dataSource = state.contacts;
-    });
-    this.store.dispatch(new ContactSearch({}));
+    this.store.dispatch(contactActions.SearchAction({})); // todo: add paging, filtering, etc.. via contactSearchRequest via API model
   }
 }

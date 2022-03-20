@@ -4,7 +4,7 @@
     Contacts
   </mat-card-title>
   <mat-card-content>
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z0">
+    <table mat-table [dataSource]="contacts$ | async" class="mat-elevation-z0">
 
       <!--- Note that these columns can be defined in any order.
             The actual rendered columns are set as a property on the row definition" -->

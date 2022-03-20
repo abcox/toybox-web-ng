@@ -12,7 +12,7 @@ import { ApiModule, Configuration, ConfigurationParameters } from 'toybox-backen
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { ContactEffects } from './contact/store/contact.effects';
-import { reducers } from '../app/app.state';
+import { reducers } from './store/reducers';
 
 export function apiConfigFactory (): Configuration {
   const params: ConfigurationParameters = {
